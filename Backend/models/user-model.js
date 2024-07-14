@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     required: [true, "Please provide your role"],
-    enum: ["job Seeker", "Employer"],
+    enum: ["Job Seeker", "Employer"],
   },
   createdAt: {
     type: Date,

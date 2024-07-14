@@ -1,4 +1,4 @@
-import express, { urlencoded } from "express";
+import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
@@ -6,7 +6,7 @@ import fileUpload from "express-fileupload";
 import userRoute from "./routes/user-route.js"
 import jobRoute from "./routes/job-route.js"
 import applicationRoute from "./routes/application-route.js"
-import connectDB from "./database/db.js"
+import connectDB from  "./database/db.js"
 import { errorMiddleware } from "./middleware/error.js";
 const app = express();
 dotenv.config({ path: "./config/config.env" });

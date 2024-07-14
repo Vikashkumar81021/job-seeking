@@ -4,6 +4,7 @@ import ErrorHandler from "../middleware/error.js";
 import { sendToken } from "../utils/jwtToken.js";
 export const register = asynchandler(async (req, res, next) => {
   try {
+    console.log("Request body:", req.body);
     const { name, email, password, phone, role } = req.body;
 
     if (
@@ -28,7 +29,8 @@ export const register = asynchandler(async (req, res, next) => {
       phone,
       role,
     });
-
+   
+    console.log("Request body:", req.body,user);
     sendToken(user, 200, res, "User Register sucessfully");
   } catch (error) {
     next(error);
@@ -58,7 +60,7 @@ export const login = asynchandler(async (req, res, next) => {
       return next(new ErrorHandler("User with the role is not found", 404)); // Specify status code
     }
 
-    sendToken(user, res, 200, "User login successfully!");
+    sendToken(user,200, res,  "User login successfully!");
 
   } catch (error) {
     next(error); // Pass error to the next middleware
