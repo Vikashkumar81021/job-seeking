@@ -10,6 +10,7 @@ import connectDB from  "./database/db.js"
 import { errorMiddleware } from "./middleware/error.js";
 
 const app = express();
+
 config({ path: "./config/config.env" });
 app.use(
   cors({
@@ -18,6 +19,7 @@ app.use(
     credentials: true,
   })
 );
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -29,7 +31,7 @@ app.use(
   })
 );
 app.use("/api/v1/user",userRoute)
-app.use("/apv/v1/job",jobRoute)
+app.use("/api/v1/job",jobRoute)
 app.use("/api/v1/application",applicationRoute)
 connectDB()
 app.use(errorMiddleware)
