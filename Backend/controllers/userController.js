@@ -4,9 +4,9 @@ import ErrorHandler from "../middleware/error.js";
 import { sendToken } from "../utils/jwtToken.js";
 export const register = asynchandler(async (req, res, next) => {
   try {
-    console.log("Request body:", req.body);
+    
     const { name, email, password, phone, role } = req.body;
-
+  
     if (
       [name, email, password, phone, role].some(
         (field) => !field || field.trim() === ""
@@ -30,12 +30,13 @@ export const register = asynchandler(async (req, res, next) => {
       role,
     });
    
-    console.log("Request body:", req.body,user);
     sendToken(user, 200, res, "User Register sucessfully");
   } catch (error) {
     next(error);
   }
 });
+
+
 
 
 export const login = asynchandler(async (req, res, next) => {
