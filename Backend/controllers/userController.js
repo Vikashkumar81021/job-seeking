@@ -64,7 +64,7 @@ export const login = asynchandler(async (req, res, next) => {
     sendToken(user,200, res,  "User login successfully!");
 
   } catch (error) {
-    next(error); // Pass error to the next middleware
+    next(error); 
   }
 });
 
