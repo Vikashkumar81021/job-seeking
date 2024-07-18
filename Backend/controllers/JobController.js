@@ -11,10 +11,11 @@ export const getAllJobs = asynchandler(async (req, res, next) => {
 });
 
 export const postJob = asynchandler(async (req, res, next) => {
+  
   const { role } = req.user;
   if (role == "Job Seeker") {
     return next(
-      ErrorHandler("Job Seeker not allowed to access this resource", 400)
+     new ErrorHandler("Job Seeker not allowed to access this resource", 400)
     );
   }
   const {
@@ -30,16 +31,16 @@ export const postJob = asynchandler(async (req, res, next) => {
   } = req.body;
 
   if (!title || !description || !category || !country || !city || !location) {
-    return next(ErrorHandler("Please Provide full job Details", 400));
+    return next(new ErrorHandler("Please Provide full job Details", 400));
   }
   if ((!salaryTo || !salaryFrom) && !fixedSalary) {
     return next(
-      ErrorHandler("Please either Provide salary or ranged salary  ")
+     new ErrorHandler("Please either Provide salary or ranged salary  ")
     );
   }
   if (salaryTo && salaryFrom && fixedSalary) {
     return next(
-      ErrorHandler("Cannot  enter fixed salary and ranged salary together  ")
+    new  ErrorHandler("Cannot  enter fixed salary and ranged salary together  ")
     );
   }
   const postedBy = req.user._id;
@@ -60,7 +61,7 @@ export const getMyjob = asynchandler(async (req, res, next) => {
   const { role } = req.user;
   if (role == "Job Seeker") {
     return next(
-      ErrorHandler("Job Seeker not allowed to access this resource", 400)
+     new ErrorHandler("Job Seeker not allowed to access this resource", 400)
     );
   }
   const myJob = await Job.find({ postedBy: req.user._id });
@@ -74,13 +75,13 @@ export const update = asynchandler(async (req, res, next) => {
   const { role } = req.user;
   if (role == "Job Seeker") {
     return next(
-      ErrorHandler("Job Seeker not allowed to access this resource", 400)
+     new ErrorHandler("Job Seeker not allowed to access this resource", 400)
     );
   }
   const { id } = req.params;
   let job = await Job.findById(id);
   if (!job) {
-    return next(ErrorHandler("Job Not found", 404));
+    return next(new ErrorHandler("Job Not found", 404));
   }
   job=await Job.findByIdAndUpdate(id,req.body,{
     new:true,
@@ -98,13 +99,13 @@ export const deleteJob=asynchandler(async(req,res,next)=>{
     const { role } = req.user;
     if (role == "Job Seeker") {
       return next(
-        ErrorHandler("Job Seeker not allowed to access this resource", 400)
+       new  ErrorHandler("Job Seeker not allowed to access this resource", 400)
       );
     }
     const { id } = req.params;  
     let job = await Job.findById(id);
     if (!job) {
-        return next(ErrorHandler("Job Not found", 404));
+        return next(new ErrorHandler("Job Not found", 404));
       }
       await Job.deleteOne()
 })
